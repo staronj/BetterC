@@ -8,17 +8,20 @@
 #include <malloc.h>
 #include <errno.h>
 #include <assert.h>
+#include "err.h"
 
 long safe_cstring_to_long(const char* text) {
   errno = 0;
   long result = strtol(text, NULL, 10);
-  assert (errno == 0);
+  if (errno != 0)
+    fatal("safe_cstring_to_long: conversion of \"%s\" to long failed.", text);
   return result;
 }
 
 long safe_cstring_to_long_min_max(const char* text, long minimal, long maximal) {
   long result = safe_cstring_to_long(text);
-  assert (minimal <= result && result <= maximal);
+  if (maximal < result || result < minimal)
+    fatal("safe_cstring_to_long_min_max: %ld is not in range <%ld, %ld>.", result, minimal, maximal);
   return result;
 }
 

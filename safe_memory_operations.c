@@ -6,6 +6,7 @@
 
 #include <string.h>
 #include <malloc.h>
+#include "err.h"
 
 void safe_raw_copy(void* destination, const void* source, size_t number, size_t sizeOfElement) {
   if(number > 0)
@@ -19,6 +20,8 @@ void* safe_raw_allocate(size_t number, size_t sizeOfElement) {
   else {
     size_t size = number * sizeOfElement;
     void* data = malloc(size);
+    if (data == NULL)
+      syserr("safe_raw_allocate: malloc returned NULL while allocating %zu bytes", size);
     memset(data, 0, size);
     return data;
   }
