@@ -2,10 +2,11 @@
  * Copyright Jakub Staroń 2015 - 2016
  */
 
-#include <string.h>
-#include <assert.h>
 #include "vector.h"
 #include "safe_memory_operations.h"
+
+#include <string.h>
+#include <assert.h>
 
 struct Vector
 {

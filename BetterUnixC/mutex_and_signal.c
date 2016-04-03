@@ -7,7 +7,6 @@
 #include "err.h"
 #include <pthread.h>
 #include <assert.h>
-#include <malloc.h>
 
 struct MutexAndSignal {
   pthread_mutex_t lock;

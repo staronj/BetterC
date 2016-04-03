@@ -5,7 +5,6 @@
 #ifndef BETTERC_THREAD_H
 #define BETTERC_THREAD_H
 
-#include "system_headers.h"
 
 /**
  * Pthread thread.

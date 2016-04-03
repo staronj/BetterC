@@ -5,8 +5,9 @@
 #ifndef BETTERC_MESSAGE_QUEUE_H
 #define BETTERC_MESSAGE_QUEUE_H
 
-#include "system_headers.h"
 #include "better_string.h"
+
+#include <sys/types.h>
 
 /**
  * Wrapper for system V message queue.
