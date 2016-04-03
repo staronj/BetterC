@@ -1,14 +1,15 @@
 /**
- * Copyright Jakub Staroń 2015
+ * Copyright Jakub Staroń 2015 - 2016
  */
 
 #include "safe_utility.h"
+#include "safe_memory_operations.h"
+#include "err.h"
+
 #include <stdlib.h>
 #include <stdio.h>
-#include <malloc.h>
 #include <errno.h>
-#include <assert.h>
-#include "err.h"
+
 
 long safe_cstring_to_long(const char* text) {
   errno = 0;

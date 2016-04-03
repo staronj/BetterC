@@ -1,10 +1,10 @@
 /**
- * Copyright Jakub Staroń 2015
+ * Copyright Jakub Staroń 2015 - 2016
  */
 
 #include "better_string.h"
 #include "safe_memory_operations.h"
-#include <malloc.h>
+
 #include <assert.h>
 #include <string.h>
 

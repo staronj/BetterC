@@ -1,7 +1,5 @@
-/** @file
-    @author Jakub Staroń
-    @copyright Jakub Staroń
-    @date 2015-05-23
+/**
+ * Copyright Jakub Staroń 2015 - 2016
  */
 
 #include <string.h>
@@ -33,7 +31,7 @@ static size_t CalculateCapacity(size_t current_capacity, size_t desired_capacity
 	}
 }
 
-Vector_pointer Vector_new(size_t elementSize, enum VectorMemoryMode memoryMode) {
+Vector_pointer Vector_create(size_t elementSize, enum VectorMemoryMode memoryMode) {
 	Vector_pointer this = safe_raw_allocate(1, sizeof(struct Vector));
   this->size = 0;
   this->capacity = 0;
@@ -112,24 +110,24 @@ void Vector_removeN(Vector_pointer this, size_t index, size_t count) {
 	this->size -= count;
 }
 
-void* Vector_at(Vector_const_pointer this, size_t index) {
+void* Vector_at(Vector_pointer this, size_t index) {
 	assert(this != NULL);
 	assert(0 <= index);
 	assert(index < this->size);
 	return safe_raw_offset(this->elements, index, this->elementSize);
 }
 
-size_t Vector_size(Vector_const_pointer this) {
+size_t Vector_size(Vector_pointer this) {
 	assert(this != NULL);
 	return this->size;
 }
 
-bool Vector_empty(Vector_const_pointer this) {
+bool Vector_empty(Vector_pointer this) {
   assert(this != NULL);
   return this->size == 0;
 }
 
-size_t Vector_capacity(Vector_const_pointer this) {
+size_t Vector_capacity(Vector_pointer this) {
 	assert(this != NULL);
 	return this->capacity;
 }
@@ -155,14 +153,14 @@ void Vector_shrinkToFit(Vector_pointer this) {
 	}
 }
 
-void* Vector_back(Vector_const_pointer this) {
+void* Vector_back(Vector_pointer this) {
 	assert(this != NULL);
 	assert(this->size > 0);
 	return Vector_at(this, this->size - 1);
 }
 
 
-void* Vector_front(Vector_const_pointer this) {
+void* Vector_front(Vector_pointer this) {
 	assert(this != NULL);
 	assert(this->size > 0);
 	return Vector_at(this, 0);

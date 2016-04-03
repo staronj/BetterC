@@ -1,20 +1,16 @@
-/** @file
-    @author Jakub Staroń
-    @copyright Jakub Staroń
-    @date 2015-05-23
+/**
+ * Copyright Jakub Staroń 2015 - 2016
  */
 
 #ifndef BETTERC_VECTOR_H
 #define BETTERC_VECTOR_H
 
-#include <stdlib.h>
 #include <stddef.h>
 #include <stdbool.h>
 
 struct Vector;
 
 typedef struct Vector * Vector_pointer;
-typedef const struct Vector * Vector_const_pointer;
 
 /**
  * Enum type specifying memory mode of vector.
@@ -29,15 +25,15 @@ enum VectorMemoryMode
  * Returns new, empty vector.
  * size_t should be size of stored elements
  */
-Vector_pointer Vector_new(size_t elementSize, enum VectorMemoryMode memoryMode);
+Vector_pointer Vector_create(size_t elementSize, enum VectorMemoryMode memoryMode);
 
 /**
- * Destruction of vector.
+ * Destructs vector.
  */
 void Vector_free(Vector_pointer this);
 
 /**
- * Increase capacity to be at least target_capacity big.
+ * Increases capacity to be at least target_capacity big.
  */
 void Vector_reserve(Vector_pointer this, size_t target_capacity);
 
@@ -81,22 +77,22 @@ void Vector_removeN(Vector_pointer this, size_t index, size_t count);
 /**
  * Returns pointer to the element at specified position.
  */
-void* Vector_at(Vector_const_pointer this, size_t index);
+void* Vector_at(Vector_pointer this, size_t index);
 
 /**
  * Returns size of vector.
  */
-size_t Vector_size(Vector_const_pointer this);
+size_t Vector_size(Vector_pointer this);
 
 /**
  * Returns if vector is empty.
  */
-bool Vector_empty(Vector_const_pointer this);
+bool Vector_empty(Vector_pointer this);
 
 /**
  * Returns vector capacity.
  */
-size_t Vector_capacity(Vector_const_pointer this);
+size_t Vector_capacity(Vector_pointer this);
 
 /**
  * Cleans vector.
@@ -116,12 +112,12 @@ void Vector_shrinkToFit(Vector_pointer this);
 /**
  * Returns pointer to last element in vector.
  */
-void* Vector_back(Vector_const_pointer this);
+void* Vector_back(Vector_pointer this);
 
 /**
  * Returns pointer to first element in vector.
  */
-void* Vector_front(Vector_const_pointer this);
+void* Vector_front(Vector_pointer this);
 
 /**
  * Helping macros.

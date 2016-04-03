@@ -1,11 +1,11 @@
 /**
- * Copyrights Jakub Staroń 2015
+ * Copyright Jakub Staroń 2015 - 2016
  */
 
-#include <malloc.h>
-#include <string.h>
-#include <assert.h>
 #include "input_stream.h"
+#include "safe_memory_operations.h"
+
+#include <assert.h>
 
 struct InputStream {
   String_pointer string;
@@ -13,9 +13,7 @@ struct InputStream {
 };
 
 static InputStream_pointer InputStream_allocate() {
-  InputStream_pointer result = malloc(sizeof(struct InputStream));
-  memset(result, 0, sizeof(struct InputStream));
-  return result;
+  return safe_raw_allocate(1, sizeof(struct InputStream));
 }
 
 InputStream_pointer InputStream_fromCString(const char * c_string) {
@@ -65,26 +63,24 @@ void InputStream_readData(InputStream_pointer this, void * output, size_t size) 
   assert(this != NULL);
   assert(InputStream_howManyMore(this) >= size);
 
-  char* ptr = (char*)output;
-  for (size_t i = 0 ; i < size ; i++)
-    *ptr++ = InputStream_readChar(this);
+  safe_raw_copy(output, String_data(this->string) + this->i, size, sizeof(char));
+  this->i += size;
 }
 
 String_pointer InputStream_readAll(InputStream_pointer this) {
   assert(this != NULL);
-  String_pointer result = String_substr(this->string, this->i, String_size(this->string));
-  this->i = String_size(this->string);
-  return result;
+  return InputStream_readAtMost(this, String_size(this->string));
 }
 
-String_pointer InputStream_readAtMost(InputStream_pointer this, size_t size) {
+String_pointer InputStream_readAtMost(InputStream_pointer this, size_t count) {
   assert(this != NULL);
-  size_t how_many = InputStream_howManyMore(this);
-  if (how_many < size) size = how_many;
+  size_t available = InputStream_howManyMore(this);
+  if (available < count)
+    count = available;
 
   const char* data = String_data(this->string) + this->i;
-  String_pointer result = String_fromData(data, how_many);
-  this->i += how_many;
+  String_pointer result = String_fromData(data, count);
+  this->i += count;
 
   return result;
 }

@@ -1,11 +1,12 @@
 /**
- * Copyright Jakub Staroń 2015
+ * Copyright Jakub Staroń 2015 - 2016
  */
 
 #include "string_builder.h"
 #include "safe_memory_operations.h"
 #include "safe_utility.h"
 #include "vector.h"
+
 #include <assert.h>
 #include <string.h>
 
@@ -19,7 +20,7 @@ static StringBuilder_pointer StringBuilder_allocate() {
 
 StringBuilder_pointer StringBuilder_createEmpty() {
   StringBuilder_pointer result = StringBuilder_allocate();
-  result->vector = Vector_new(sizeof(char), VECTOR_DEFAULT);
+  result->vector = Vector_create(sizeof(char), VECTOR_DEFAULT);
   return result;
 }
 
@@ -57,7 +58,7 @@ void StringBuilder_clear(StringBuilder_pointer this) {
   Vector_clear(this->vector);
 }
 
-String_pointer StringBuilder_toString(StringBuilder_const_pointer this) {
+String_pointer StringBuilder_toString(StringBuilder_pointer this) {
   assert(this != NULL);
   const char * data = Vector_data(this->vector);
   size_t size = Vector_size(this->vector);
@@ -126,12 +127,12 @@ char * StringBuilder_data(StringBuilder_pointer this) {
   return Vector_data(this->vector);
 }
 
-size_t StringBuilder_size(StringBuilder_const_pointer this) {
+size_t StringBuilder_size(StringBuilder_pointer this) {
   assert(this != NULL);
   return Vector_size(this->vector);
 }
 
-bool StringBuilder_empty(StringBuilder_const_pointer this) {
+bool StringBuilder_empty(StringBuilder_pointer this) {
   assert(this != NULL);
   return Vector_empty(this->vector);
 }
