@@ -5,6 +5,7 @@
 #ifndef BETTERC_THREAD_H
 #define BETTERC_THREAD_H
 
+#include <stdbool.h>
 
 /**
  * Pthread thread.
