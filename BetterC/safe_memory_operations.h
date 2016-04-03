@@ -2,8 +2,8 @@
  * Copyright Jakub Staroń 2015
  */
 
-#ifndef _SAFE_MEMORY_OPERATIONS_H
-#define _SAFE_MEMORY_OPERATIONS_H
+#ifndef BETTERC_SAFE_MEMORY_OPERATIONS_H
+#define BETTERC_SAFE_MEMORY_OPERATIONS_H
 
 #include <stddef.h>
 
@@ -39,4 +39,4 @@ void safe_char_move(char* data, size_t size, ptrdiff_t offset);
 
 void safe_zero_memory(void* pointer, size_t number, size_t sizeOfElement);
 
-#endif //_SAFE_MEMORY_OPERATIONS_H
+#endif /* BETTERC_SAFE_MEMORY_OPERATIONS_H */

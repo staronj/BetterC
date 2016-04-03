@@ -2,8 +2,8 @@
  * Copyright Jakub Staroń 2015
  */
 
-#ifndef PROJECT_SYSTEM_HEADERS_H
-#define PROJECT_SYSTEM_HEADERS_H
+#ifndef BETTERC_SYSTEM_HEADERS_H
+#define BETTERC_SYSTEM_HEADERS_H
 
 #include <sys/types.h>
 #include <unistd.h>
@@ -20,4 +20,4 @@
 #include <pthread.h>
 #include <limits.h>
 
-#endif //PROJECT_SYSTEM_HEADERS_H
+#endif /* BETTERC_SYSTEM_HEADERS_H */

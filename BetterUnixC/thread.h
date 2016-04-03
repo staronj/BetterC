@@ -2,8 +2,8 @@
  * Copyright Jakub Staroń 2015
  */
 
-#ifndef PROJECT_THREAD_H
-#define PROJECT_THREAD_H
+#ifndef BETTERC_THREAD_H
+#define BETTERC_THREAD_H
 
 #include "system_headers.h"
 
@@ -42,4 +42,4 @@ void Thread_joinAndFree(Thread_pointer this, void** result);
 void Thread_free(Thread_pointer this);
 
 
-#endif //PROJECT_THREAD_H
+#endif /* BETTERC_THREAD_H */

@@ -2,8 +2,8 @@
  * Copyrights Jakub Staroń 2015
  */
 
-#ifndef _INPUT_STREAM_H
-#define _INPUT_STREAM_H
+#ifndef BETTERC_INPUT_STREAM_H
+#define BETTERC_INPUT_STREAM_H
 
 #include <stdbool.h>
 #include <stddef.h>
@@ -28,4 +28,4 @@ int InputStream_readRawInt(InputStream_pointer this);
 bool InputStream_hasNext(InputStream_pointer this);
 size_t InputStream_howManyMore(InputStream_pointer this);
 
-#endif //_INPUT_STREAM_H
+#endif /* BETTERC_INPUT_STREAM_H */

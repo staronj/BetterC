@@ -2,8 +2,8 @@
  * Copyright Jakub Staroń 2015
  */
 
-#ifndef PROJECT_SAFE_UTILITY_H
-#define PROJECT_SAFE_UTILITY_H
+#ifndef BETTERC_SAFE_UTILITY_H
+#define BETTERC_SAFE_UTILITY_H
 
 #include <stddef.h>
 #include "safe_memory_operations.h"
@@ -28,4 +28,4 @@ void safe_deallocate_2d_array(void** pointer, size_t first_size);
  */
 String_pointer safe_int_to_string(int);
 
-#endif //PROJECT_SAFE_UTILITY_H
+#endif /* BETTERC_SAFE_UTILITY_H */

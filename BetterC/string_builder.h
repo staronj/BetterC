@@ -2,8 +2,8 @@
  * Copyright Jakub Staroń 2015
  */
 
-#ifndef _STRING_BUILDER_H
-#define _STRING_BUILDER_H
+#ifndef BETTERC_STRING_BUILDER_H
+#define BETTERC_STRING_BUILDER_H
 
 #include "better_string.h"
 
@@ -76,4 +76,4 @@ char * StringBuilder_data(StringBuilder_pointer this);
 size_t StringBuilder_size(StringBuilder_const_pointer this);
 bool StringBuilder_empty(StringBuilder_const_pointer this);
 
-#endif //_STRING_BUILDER_H
+#endif /* BETTERC_STRING_BUILDER_H */

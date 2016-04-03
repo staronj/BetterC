@@ -2,8 +2,8 @@
  * Copyright Jakub Staroń 2015
  */
 
-#ifndef PROJECT_MESSAGE_QUEUE_H
-#define PROJECT_MESSAGE_QUEUE_H
+#ifndef BETTERC_MESSAGE_QUEUE_H
+#define BETTERC_MESSAGE_QUEUE_H
 
 #include "system_headers.h"
 #include "better_string.h"
@@ -50,4 +50,4 @@ void MessageQueue_closeAndFree(MessageQueue_pointer this);
  */
 void MessageQueue_free(MessageQueue_pointer this);
 
-#endif //PROJECT_MESSAGE_QUEUE_H
+#endif /* BETTERC_MESSAGE_QUEUE_H */

@@ -2,8 +2,8 @@
  * Copyright Jakub Staroń 2015
  */
 
-#ifndef _BETTER_STRING_H
-#define _BETTER_STRING_H
+#ifndef BETTERC_BETTER_STRING_H
+#define BETTERC_BETTER_STRING_H
 
 #include <stddef.h>
 #include <stdbool.h>
@@ -69,4 +69,4 @@ char String_at(String_pointer this, size_t index);
  */
 const char * String_data(String_pointer this);
 
-#endif // _BETTER_STRING_H
+#endif /* BETTERC_BETTER_STRING_H */

@@ -24,7 +24,7 @@ static String_pointer String_allocate() {
 String_pointer String_fromData(const char *data, size_t size) {
   assert(data != NULL || size == 0);
   String_pointer result = String_allocate();
-  // one more for null terminating character
+  /* one more for null terminating character */
   result->data = safe_char_allocate(size + 1);
   result->size = size;
   safe_char_copy(result->data, data, size);

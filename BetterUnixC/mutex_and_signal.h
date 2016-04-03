@@ -2,8 +2,8 @@
  * Copyright Jakub Staroń 2015
  */
 
-#ifndef PROJECT_MUTEX_AND_SIGNAL_H
-#define PROJECT_MUTEX_AND_SIGNAL_H
+#ifndef BETTERC_MUTEX_AND_SIGNAL_H
+#define BETTERC_MUTEX_AND_SIGNAL_H
 
 /**
  * Pair of pthread mutex and condition variable.
@@ -50,4 +50,4 @@ void MutexAndSignal_signal(MutexAndSignal_pointer this);
  */
 void MutexAndSignal_free(MutexAndSignal_pointer this);
 
-#endif //PROJECT_MUTEX_AND_SIGNAL_H
+#endif /* BETTERC_MUTEX_AND_SIGNAL_H */

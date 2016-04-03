@@ -4,8 +4,8 @@
     @date 2015-05-23
  */
 
-#ifndef __VECTOR_H__
-#define __VECTOR_H__
+#ifndef BETTERC_VECTOR_H
+#define BETTERC_VECTOR_H
 
 #include <stdlib.h>
 #include <stddef.h>
@@ -21,8 +21,8 @@ typedef const struct Vector * Vector_const_pointer;
  */
 enum VectorMemoryMode
 {
-	VECTOR_GREEDY, // Capacity increase by one every time.
-	VECTOR_DEFAULT // Capacity increase times constant.
+	VECTOR_GREEDY, /* Capacity increase by one every time. */
+	VECTOR_DEFAULT /* Capacity increase times constant. */
 };
 
 /**
@@ -131,4 +131,4 @@ void* Vector_front(Vector_const_pointer this);
 #define VECTOR_BACK(vector, type) (*((type*)(Vector_back((vector)))))
 #define VECTOR_FRONT(vector, type) (*((type*)(Vector_front((vector)))))
 
-#endif /* __VECTOR__ */
+#endif /* BETTERC_VECTOR_H */
