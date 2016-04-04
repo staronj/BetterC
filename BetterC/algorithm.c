@@ -1,5 +1,5 @@
 /**
- * Copyright Jakub Staroń 2015 - 2016
+ * Copyright Jakub Staroń 2016
  */
 
 #include "algorithm.h"

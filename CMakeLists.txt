@@ -4,6 +4,7 @@ project (BetterC)
 set(CMAKE_C_FLAGS "-std=c99 -Wall")
 set(CMAKE_C_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g")
 
+enable_testing()
 include_directories(BetterC)
 include_directories(BetterUnixC)
 add_subdirectory(BetterC)
