@@ -46,6 +46,9 @@ size_t String_size(String_pointer this);
 
 /**
  * Compares two strings.
+ *
+ * If equal, returns 0. If first is less, returns -1, otherwise returns 1.
+ *
  * Shorter string is always less.
  * If strings have the same length, they are compared
  * by memcmp.

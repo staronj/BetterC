@@ -4,6 +4,7 @@
 
 #include "better_string.h"
 #include "safe_memory_operations.h"
+#include "algorithm.h"
 
 #include <assert.h>
 #include <string.h>
@@ -72,7 +73,7 @@ int String_compare(String_pointer a, String_pointer b) {
   if (a->size != b->size)
     return (a->size < b->size)? -1 : 1;
   else
-    return memcmp(a->data, b->data, a->size);
+    return signum(memcmp(a->data, b->data, a->size));
 }
 
 int String_compareCstr(String_pointer a, const char* b) {
