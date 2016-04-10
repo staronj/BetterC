@@ -21,7 +21,7 @@ void create_empty_test() {
 
   String_pointer string = String_fromCString("ld!");
   StringBuilder_appendString(builder, string);
-  String_free(string);
+  String_destroy(string);
 
   string = StringBuilder_toString(builder);
   assert(String_compareCstr(string, "Hello World!") == 0);
@@ -30,7 +30,7 @@ void create_empty_test() {
   assert(StringBuilder_empty(builder) == true);
   assert(StringBuilder_size(builder) == 0);
 
-  StringBuilder_free(builder);
+  StringBuilder_destroy(builder);
 }
 
 void from_various_test() {
@@ -41,7 +41,7 @@ void from_various_test() {
 
   String_pointer string = String_fromCString(text);
   StringBuilder_pointer builder3 = StringBuilder_fromString(string);
-  String_free(string);
+  String_destroy(string);
 
   assert(StringBuilder_size(builder1) == 12);
   assert(StringBuilder_size(builder2) == 12);
@@ -51,9 +51,9 @@ void from_various_test() {
   assert(memcmp(StringBuilder_data(builder2), text, 12) == 0);
   assert(memcmp(StringBuilder_data(builder3), text, 12) == 0);
 
-  StringBuilder_free(builder1);
-  StringBuilder_free(builder2);
-  StringBuilder_free(builder3);
+  StringBuilder_destroy(builder1);
+  StringBuilder_destroy(builder2);
+  StringBuilder_destroy(builder3);
 }
 
 void append_string_test() {
@@ -62,20 +62,20 @@ void append_string_test() {
   StringBuilder_appendFormattedInt(builder, 123456789);
   String_pointer string = StringBuilder_toString(builder);
   assert(String_compareCstr(string, "123456789") == 0);
-  String_free(string);
+  String_destroy(string);
 
   StringBuilder_clear(builder);
   int value = 123456789;
   StringBuilder_appendRawInt(builder, value);
   assert(memcmp(StringBuilder_data(builder), &value, sizeof(int)) == 0);
 
-  StringBuilder_free(builder);
+  StringBuilder_destroy(builder);
 }
 
 static bool equal_to(StringBuilder_pointer builder, const char* text) {
   String_pointer string = StringBuilder_toString(builder);
   bool result = (String_compareCstr(string, text) == 0);
-  String_free(string);
+  String_destroy(string);
   return result;
 }
 
@@ -101,10 +101,10 @@ void insert_test() {
 
   String_pointer string = String_fromCString(" lovely");
   StringBuilder_insertString(builder, 5, string);
-  String_free(string);
+  String_destroy(string);
   assert(equal_to(builder, "Hello lovely World!Hello World!"));
 
-  StringBuilder_free(builder);
+  StringBuilder_destroy(builder);
 }
 
 int main() {

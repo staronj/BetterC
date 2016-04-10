@@ -12,13 +12,13 @@ else()
             --force-new-ctest-process --output-on-failure)
 endif()
 
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/tests/BetterC)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/tests/)
 
 file(GLOB files "*_test.c")
 foreach(file ${files})
     get_filename_component(name ${file} NAME_WE)
     add_executable(${name} ${name}.c)
     target_link_libraries(${name} BetterC)
-    add_test(${name} ${CMAKE_CURRENT_BINARY_DIR}/${name})
+    add_test(${name} ${CMAKE_BINARY_DIR}/bin/tests/${name})
 endforeach()
 

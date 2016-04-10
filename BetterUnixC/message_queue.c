@@ -3,7 +3,9 @@
  */
 
 #include "message_queue.h"
-#include "system_headers.h"
+#include <sys/msg.h>
+#include <errno.h>
+#include <assert.h>
 #include "safe_memory_operations.h"
 #include "err.h"
 
@@ -58,8 +60,7 @@ MessageQueue_pointer MessageQueue_open(key_t key) {
   return create_queue_with_flags(key, 0);
 }
 
-void MessageQueue_send(MessageQueue_pointer this, long type,
-                       String_pointer message) {
+void MessageQueue_send(MessageQueue_pointer this, long type, String_pointer message) {
   assert(this != NULL);
   assert(String_size(message) <= MESSAGE_MAX_SIZE);
   struct MessageBuffer buffer;
@@ -69,7 +70,7 @@ void MessageQueue_send(MessageQueue_pointer this, long type,
   safe_char_copy(buffer.message, String_data(message), String_size(message));
 
   int message_size = sizeof(struct MessageBuffer) - sizeof(long);
-  HANDLE_EINR(msgsnd(this->message_queue_handle, (struct msgbuf*) &buffer, message_size, 0), msgsnd);
+  HANDLE_EINR(msgsnd(this->message_queue_handle, (struct msgbuf*)&buffer, message_size, 0), msgsnd);
 }
 
 String_pointer MessageQueue_receive(MessageQueue_pointer this, long type) {
@@ -77,18 +78,18 @@ String_pointer MessageQueue_receive(MessageQueue_pointer this, long type) {
   struct MessageBuffer buffer;
 
   int message_size = sizeof(struct MessageBuffer) - sizeof(long);
-  HANDLE_EINR(msgrcv(this->message_queue_handle, (struct msgbuf*) &buffer, message_size, type, 0), msgrcv);
+  HANDLE_EINR(msgrcv(this->message_queue_handle, (struct msgbuf*)&buffer, message_size, type, 0), msgrcv);
   return String_fromData(buffer.message, buffer.message_size);
 }
 
-void MessageQueue_closeAndFree(MessageQueue_pointer this) {
+void MessageQueue_closeAndDestroy(MessageQueue_pointer this) {
   assert(this != NULL);
   if (msgctl(this->message_queue_handle, IPC_RMID, 0) == -1)
     syserr("msgctl in remove_queue");
 
-  MessageQueue_free(this);
+  MessageQueue_destroy(this);
 }
 
-void MessageQueue_free(MessageQueue_pointer this) {
+void MessageQueue_destroy(MessageQueue_pointer this) {
   free(this);
 }

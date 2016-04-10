@@ -67,6 +67,7 @@ String_pointer TCP_receive(TCPConnection_pointer connection, size_t count);
  * Sends \p data or \p string to TCP \p connection.
  */
 void TCP_sendData(TCPConnection_pointer connection, const void* data, size_t size);
+
 void TCP_sendString(TCPConnection_pointer connection, String_pointer data);
 
 /**
@@ -85,11 +86,11 @@ String_pointer TCP_receiveMessage(TCPConnection_pointer connection);
 /**
  * Closes \p connection and frees memory.
  */
-void TCP_closeAndFreeConnection(TCPConnection_pointer connection);
+void TCP_closeAndDestroyConnection(TCPConnection_pointer connection);
 
 /**
  * Stops listening, closes the socket and frees memory.
  */
-void TCP_closeAndFreeListener(TCPListener_pointer listener);
+void TCP_closeAndDestroyListener(TCPListener_pointer listener);
 
 #endif /* BETTERC_SOCKET_H */

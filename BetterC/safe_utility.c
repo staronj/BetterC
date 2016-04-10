@@ -3,12 +3,11 @@
  */
 
 #include "safe_utility.h"
-#include "safe_memory_operations.h"
-#include "err.h"
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <errno.h>
+#include "safe_memory_operations.h"
+#include "err.h"
 
 
 long safe_cstring_to_long(const char* text) {

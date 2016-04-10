@@ -3,13 +3,13 @@
  */
 
 #include "socket.h"
-#include <netinet/in.h>
 #include <sys/types.h>
+#include <netinet/in.h>
 #include <sys/socket.h>
 #include <netdb.h>
 #include "safe_memory_operations.h"
-#include "input_stream.h"
 #include "err.h"
+
 
 uint16_t host_to_network_short(uint16_t s) {
   return htons(s);
@@ -48,9 +48,9 @@ void UDPSocket_bind() {
   // FIXME: TODO
 }
 
-void UDPSocket_free(UDPSocket_pointer this) {
+void UDPSocket_destroy(UDPSocket_pointer this) {
   if (close(this->socket) == -1)
-    syserr("UDPSocket_free - close");
+    syserr("UDPSocket_destroy - close");
 
   this->socket;
   free(this);
@@ -84,7 +84,7 @@ TCPListener_pointer TCP_listen(short port) {
   address.sin_addr.s_addr = INADDR_ANY;
   address.sin_port = host_to_network_short(port);
 
-  if (bind(this->socket, (struct sockaddr*) &address, sizeof(address)) != 0)
+  if (bind(this->socket, (struct sockaddr*)&address, sizeof(address)) != 0)
     syserr("TCPListener_create - failed to bind socket");
 
   if (listen(this->socket, 5) != 0)
@@ -96,7 +96,7 @@ TCPListener_pointer TCP_listen(short port) {
 TCPConnection_pointer TCP_accept(TCPListener_pointer listener) {
   struct sockaddr_in address;
   int address_length = sizeof(address);
-  int new_socket = accept(listener->socket, (struct sockaddr*) &address, &address_length);
+  int new_socket = accept(listener->socket, (struct sockaddr*)&address, &address_length);
   if (new_socket < 0)
     syserr("TCPListener_accept - accept failure");
 
@@ -165,7 +165,7 @@ void TCP_sendData(TCPConnection_pointer connection, const void* data, size_t siz
     if (sent < 0)
       syserr("TCPSend - send failure");
 
-    data = safe_raw_offset((void*) data, sent, sizeof(char));
+    data = safe_raw_offset((void*)data, sent, sizeof(char));
     size -= sent;
   }
 }
@@ -192,16 +192,16 @@ String_pointer TCP_receiveMessage(TCPConnection_pointer connection) {
   return message;
 }
 
-void TCP_closeAndFreeConnection(TCPConnection_pointer connection) {
+void TCP_closeAndDestroyConnection(TCPConnection_pointer connection) {
   if (close(connection->socket) == -1)
-    syserr("TCP_closeAndFreeConnection - close failure");
+    syserr("TCP_closeAndDestroyConnection - close failure");
   connection->socket = 0;
   free(connection);
 }
 
-void TCP_closeAndFreeListener(TCPListener_pointer listener) {
+void TCP_closeAndDestroyListener(TCPListener_pointer listener) {
   if (close(listener->socket) == -1)
-    syserr("TCP_closeAndFreeListener - close failure");
+    syserr("TCP_closeAndDestroyListener - close failure");
   listener->socket = 0;
   free(listener);
 }

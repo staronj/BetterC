@@ -3,11 +3,12 @@
  */
 
 #include "read_write_lock.h"
+#include <errno.h>
 #include <pthread.h>
 #include <assert.h>
-#include <errno.h>
 #include "safe_memory_operations.h"
 #include "err.h"
+
 
 struct ReadWriteLock {
   pthread_rwlock_t rwlock;
@@ -17,7 +18,7 @@ static ReadWriteLock_pointer ReadWriteLock_allocate() {
   return safe_raw_allocate(1, sizeof(struct ReadWriteLock));
 }
 
-ReadWriteLock_pointer ReadWriteLock_create(){
+ReadWriteLock_pointer ReadWriteLock_create() {
   ReadWriteLock_pointer this = ReadWriteLock_allocate();
 
   if (pthread_rwlock_init(&this->rwlock, NULL) != 0)
@@ -73,11 +74,11 @@ void ReadWriteLock_unlock(ReadWriteLock_pointer this) {
     syserr("ReadWriteLock_unlock - pthread_rwlock_unlock failure.");
 }
 
-void ReadWriteLock_free(ReadWriteLock_pointer this) {
+void ReadWriteLock_destroy(ReadWriteLock_pointer this) {
   assert(this != NULL);
 
   if (pthread_rwlock_destroy(&this->rwlock) != 0)
-    syserr("ReadWriteLock_free - pthread_rwlock_destroy failure.");
+    syserr("ReadWriteLock_destroy - pthread_rwlock_destroy failure.");
 
   free(this);
 }

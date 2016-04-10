@@ -55,7 +55,7 @@ void ReadWriteLock_unlock(ReadWriteLock_pointer this);
 /**
  * Destroys ReadWriteLock and frees memory.
  */
-void ReadWriteLock_free(ReadWriteLock_pointer this);
+void ReadWriteLock_destroy(ReadWriteLock_pointer this);
 
 
 #endif /* BETTERC_READ_WRITE_LOCK_H */

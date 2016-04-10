@@ -15,12 +15,14 @@
  * Second version have additional parameters to assert integer range.
  */
 long safe_cstring_to_long(const char*);
+
 long safe_cstring_to_long_min_max(const char*, long, long);
 
 /**
  * Allocates and deallocates 2d arrays.
  */
 void** safe_allocate_2d_array(size_t first_size, size_t second_size, size_t element_size);
+
 void safe_deallocate_2d_array(void** pointer, size_t first_size);
 
 /**

@@ -10,15 +10,14 @@
 
 struct Vector;
 
-typedef struct Vector * Vector_pointer;
+typedef struct Vector* Vector_pointer;
 
 /**
  * Enum type specifying memory mode of vector.
  */
-enum VectorMemoryMode
-{
-	VECTOR_GREEDY, /* Capacity increase by one every time. */
-	VECTOR_DEFAULT /* Capacity increase times constant. */
+enum VectorMemoryMode {
+  VECTOR_GREEDY, /* Capacity increase by one every time. */
+      VECTOR_DEFAULT /* Capacity increase times constant. */
 };
 
 /**
@@ -30,7 +29,7 @@ Vector_pointer Vector_create(size_t elementSize, enum VectorMemoryMode memoryMod
 /**
  * Destructs vector.
  */
-void Vector_free(Vector_pointer this);
+void Vector_destroy(Vector_pointer this);
 
 /**
  * Increases capacity to be at least target_capacity big.

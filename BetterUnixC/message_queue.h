@@ -6,7 +6,6 @@
 #define BETTERC_MESSAGE_QUEUE_H
 
 #include "better_string.h"
-
 #include <sys/types.h>
 
 /**
@@ -14,7 +13,7 @@
  */
 struct MessageQueue;
 
-typedef struct MessageQueue * MessageQueue_pointer;
+typedef struct MessageQueue* MessageQueue_pointer;
 
 /** Maximum size of message. */
 #define MESSAGE_MAX_SIZE (100)
@@ -44,11 +43,11 @@ String_pointer MessageQueue_receive(MessageQueue_pointer this, long type);
  * Closes and frees queue \p this.
  * In case of failure calls syserr.
  */
-void MessageQueue_closeAndFree(MessageQueue_pointer this);
+void MessageQueue_closeAndDestroy(MessageQueue_pointer this);
 
 /**
  * Frees queue \p this without closing it.
  */
-void MessageQueue_free(MessageQueue_pointer this);
+void MessageQueue_destroy(MessageQueue_pointer this);
 
 #endif /* BETTERC_MESSAGE_QUEUE_H */

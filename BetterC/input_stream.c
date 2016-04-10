@@ -3,9 +3,9 @@
  */
 
 #include "input_stream.h"
+#include <assert.h>
 #include "safe_memory_operations.h"
 
-#include <assert.h>
 
 struct InputStream {
   String_pointer string;
@@ -16,7 +16,7 @@ static InputStream_pointer InputStream_allocate() {
   return safe_raw_allocate(1, sizeof(struct InputStream));
 }
 
-InputStream_pointer InputStream_fromCString(const char * c_string) {
+InputStream_pointer InputStream_fromCString(const char* c_string) {
   InputStream_pointer result = InputStream_allocate();
   result->i = 0;
   result->string = String_fromCString(c_string);
@@ -30,16 +30,16 @@ InputStream_pointer InputStream_fromString(String_pointer string) {
   return result;
 }
 
-InputStream_pointer InputStream_fromData(const char * data, size_t size) {
+InputStream_pointer InputStream_fromData(const char* data, size_t size) {
   InputStream_pointer result = InputStream_allocate();
   result->i = 0;
   result->string = String_fromData(data, size);
   return result;
 }
 
-void InputStream_free(InputStream_pointer this) {
+void InputStream_destroy(InputStream_pointer this) {
   assert(this != NULL);
-  String_free(this->string);
+  String_destroy(this->string);
   this->string = NULL;
   this->i = 0;
   free(this);
@@ -59,7 +59,7 @@ char InputStream_peekChar(InputStream_pointer this) {
   return String_at(this->string, this->i);
 }
 
-void InputStream_readData(InputStream_pointer this, void * output, size_t size) {
+void InputStream_readData(InputStream_pointer this, void* output, size_t size) {
   assert(this != NULL);
   assert(InputStream_howManyMore(this) >= size);
 

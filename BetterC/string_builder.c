@@ -3,12 +3,12 @@
  */
 
 #include "string_builder.h"
+#include <assert.h>
+#include <string.h>
 #include "safe_memory_operations.h"
 #include "safe_utility.h"
 #include "vector.h"
 
-#include <assert.h>
-#include <string.h>
 
 struct StringBuilder {
   Vector_pointer vector;
@@ -25,26 +25,26 @@ StringBuilder_pointer StringBuilder_createEmpty() {
 }
 
 StringBuilder_pointer StringBuilder_fromString(String_pointer string) {
-  const char * data = String_toCstring(string);
+  const char* data = String_toCstring(string);
   size_t length = String_size(string);
   return StringBuilder_fromData(data, length);
 }
 
-StringBuilder_pointer StringBuilder_fromData(const char * data, size_t size) {
+StringBuilder_pointer StringBuilder_fromData(const char* data, size_t size) {
   StringBuilder_pointer result = StringBuilder_createEmpty();
   StringBuilder_appendData(result, data, size);
   return result;
 }
 
-StringBuilder_pointer StringBuilder_fromCString(const char * c_string) {
+StringBuilder_pointer StringBuilder_fromCString(const char* c_string) {
   assert(c_string != NULL);
   size_t length = strlen(c_string);
   return StringBuilder_fromData(c_string, length);
 }
 
-void StringBuilder_free(StringBuilder_pointer this) {
+void StringBuilder_destroy(StringBuilder_pointer this) {
   assert(this != NULL);
-  Vector_free(this->vector);
+  Vector_destroy(this->vector);
   free(this);
 }
 
@@ -60,7 +60,7 @@ void StringBuilder_clear(StringBuilder_pointer this) {
 
 String_pointer StringBuilder_toString(StringBuilder_pointer this) {
   assert(this != NULL);
-  const char * data = Vector_data(this->vector);
+  const char* data = Vector_data(this->vector);
   size_t size = Vector_size(this->vector);
   return String_fromData(data, size);
 }
@@ -70,20 +70,20 @@ void StringBuilder_appendChar(StringBuilder_pointer this, char c) {
   Vector_pushBack(this->vector, &c);
 }
 
-void StringBuilder_appendCString(StringBuilder_pointer this, const char * c_string) {
+void StringBuilder_appendCString(StringBuilder_pointer this, const char* c_string) {
   assert(this != NULL);
   size_t length = strlen(c_string);
   StringBuilder_appendData(this, c_string, length);
 }
 
-void StringBuilder_appendData(StringBuilder_pointer this, const char * data, size_t size) {
+void StringBuilder_appendData(StringBuilder_pointer this, const char* data, size_t size) {
   assert(this != NULL);
   Vector_append(this->vector, data, size);
 }
 
 void StringBuilder_appendString(StringBuilder_pointer this, String_pointer string) {
   assert(this != NULL);
-  const char * data = String_toCstring(string);
+  const char* data = String_toCstring(string);
   size_t size = String_size(string);
   StringBuilder_appendData(this, data, size);
 }
@@ -93,20 +93,20 @@ void StringBuilder_insertChar(StringBuilder_pointer this, size_t position, char 
   Vector_insert(this->vector, &c, position);
 }
 
-void StringBuilder_insertCString(StringBuilder_pointer this, size_t position, const char * c_string) {
+void StringBuilder_insertCString(StringBuilder_pointer this, size_t position, const char* c_string) {
   assert(this != NULL);
   size_t length = strlen(c_string);
   StringBuilder_insertData(this, position, c_string, length);
 }
 
-void StringBuilder_insertData(StringBuilder_pointer this, size_t position, const char * data, size_t size) {
+void StringBuilder_insertData(StringBuilder_pointer this, size_t position, const char* data, size_t size) {
   assert(this != NULL);
   Vector_insertN(this->vector, data, position, size);
 }
 
 void StringBuilder_insertString(StringBuilder_pointer this, size_t position, String_pointer string) {
   assert(this != NULL);
-  const char * data = String_toCstring(string);
+  const char* data = String_toCstring(string);
   size_t size = String_size(string);
   Vector_insertN(this->vector, data, position, size);
 }
@@ -119,10 +119,10 @@ void StringBuilder_appendFormattedInt(StringBuilder_pointer this, int n) {
   assert(this != NULL);
   String_pointer number = safe_int_to_string(n);
   StringBuilder_appendString(this, number);
-  String_free(number);
+  String_destroy(number);
 }
 
-char * StringBuilder_data(StringBuilder_pointer this) {
+char* StringBuilder_data(StringBuilder_pointer this) {
   assert(this != NULL);
   return Vector_data(this->vector);
 }

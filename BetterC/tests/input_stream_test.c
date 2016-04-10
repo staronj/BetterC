@@ -14,7 +14,7 @@ int main() {
 
   String_pointer string = String_fromCString(text);
   InputStream_pointer stream2 = InputStream_fromString(string);
-  String_free(string);
+  String_destroy(string);
 
   InputStream_pointer stream3 = InputStream_fromData(text, strlen(text));
 
@@ -42,8 +42,8 @@ int main() {
   assert(InputStream_hasNext(stream4) == false);
 
   /* Destruction */
-  InputStream_free(stream1);
-  InputStream_free(stream2);
-  InputStream_free(stream3);
-  InputStream_free(stream4);
+  InputStream_destroy(stream1);
+  InputStream_destroy(stream2);
+  InputStream_destroy(stream3);
+  InputStream_destroy(stream4);
 }

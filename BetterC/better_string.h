@@ -13,19 +13,21 @@
  */
 struct String;
 
-typedef struct String * String_pointer;
+typedef struct String* String_pointer;
 
 /**
  * Constructs new string from \p data, \p c_string or another \p string.
  */
-String_pointer String_fromData(const char * data, size_t size);
-String_pointer String_fromCString(const char * c_string);
+String_pointer String_fromData(const char* data, size_t size);
+
+String_pointer String_fromCString(const char* c_string);
+
 String_pointer String_clone(String_pointer string);
 
 /**
  * Frees memory.
  */
-void String_free(String_pointer this);
+void String_destroy(String_pointer this);
 
 /**
  * Returns new string which will be substring of existing string.
@@ -54,6 +56,7 @@ size_t String_size(String_pointer this);
  * by memcmp.
  */
 int String_compare(String_pointer a, String_pointer b);
+
 int String_compareCstr(String_pointer a, const char*);
 
 /**
@@ -65,7 +68,7 @@ String_pointer String_join(String_pointer a, String_pointer b);
  * Returns pointer to c string which is holding inside struct.
  * Pointer is valid as long as struct this.
  */
-const char * String_toCstring(String_pointer this);
+const char* String_toCstring(String_pointer this);
 
 /**
  * Returns character at position \p index in string \p this.
@@ -76,6 +79,6 @@ char String_at(String_pointer this, size_t index);
  * Returns pointer to c_string which is holding inside string \p this.
  * Pointer is valid as long as string \p this.
  */
-const char * String_data(String_pointer this);
+const char* String_data(String_pointer this);
 
 #endif /* BETTERC_BETTER_STRING_H */

@@ -48,6 +48,6 @@ void MutexAndSignal_signal(MutexAndSignal_pointer this);
  * Free mutex, condition variable and memory.
  * In case of failure calls syserr.
  */
-void MutexAndSignal_free(MutexAndSignal_pointer this);
+void MutexAndSignal_destroy(MutexAndSignal_pointer this);
 
 #endif /* BETTERC_MUTEX_AND_SIGNAL_H */

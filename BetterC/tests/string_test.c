@@ -40,9 +40,9 @@ int main() {
       assert(String_compareCstr(joined, "WorldHello") == 0);
       assert(strcmp(String_toCstring(joined), "WorldHello") == 0);
 
-      String_free(substr);
-      String_free(substr2);
-      String_free(joined);
+      String_destroy(substr);
+      String_destroy(substr2);
+      String_destroy(joined);
     }
 
     {
@@ -56,10 +56,10 @@ int main() {
     }
 
 
-    String_free(a);
-    String_free(b);
-    String_free(c);
-    String_free(d);
+    String_destroy(a);
+    String_destroy(b);
+    String_destroy(c);
+    String_destroy(d);
   }
 
 }

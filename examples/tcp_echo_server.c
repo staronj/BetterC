@@ -18,8 +18,8 @@ void* HandleConnection(void* arg) {
 
   String_pointer message = TCP_receiveMessage(connection);
   TCP_sendMessage(connection, message);
-  String_free(message);
-  TCP_closeAndFreeConnection(connection);
+  String_destroy(message);
+  TCP_closeAndDestroyConnection(connection);
 
   MutexAndSignal_lock(mutex_signal);
   pending_connections--;
@@ -56,7 +56,7 @@ int main(int argc, char *argv[]) {
     MutexAndSignal_unlock(mutex_signal);
 
     Thread_pointer thread = Thread_create(HandleConnection, connection, THREAD_DETACHED);
-    Thread_free(thread);
+    Thread_destroy(thread);
   }
 
   /* Waits for all finish of all jobs. */
@@ -68,8 +68,8 @@ int main(int argc, char *argv[]) {
 
   puts("Shutting down server...");
 
-  TCP_closeAndFreeListener(listener);
-  MutexAndSignal_free(mutex_signal);
+  TCP_closeAndDestroyListener(listener);
+  MutexAndSignal_destroy(mutex_signal);
   return 0;
 }
 

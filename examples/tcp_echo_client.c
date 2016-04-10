@@ -18,9 +18,9 @@ int main(int argc, char *argv[]) {
   TCP_sendMessage(connection, message);
   String_pointer received = TCP_receiveMessage(connection);
   puts(String_toCstring(received));
-  String_free(received);
-  String_free(message);
-  TCP_closeAndFreeConnection(connection);
+  String_destroy(received);
+  String_destroy(message);
+  TCP_closeAndDestroyConnection(connection);
 
   return 0;
 }

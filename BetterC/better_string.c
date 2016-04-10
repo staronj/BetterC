@@ -3,14 +3,14 @@
  */
 
 #include "better_string.h"
+#include <assert.h>
+#include <string.h>
 #include "safe_memory_operations.h"
 #include "algorithm.h"
 
-#include <assert.h>
-#include <string.h>
 
 struct String {
-  char * data;
+  char* data;
   size_t size;
 };
 
@@ -22,7 +22,7 @@ static String_pointer String_allocate() {
   return safe_raw_allocate(1, sizeof(struct String));
 }
 
-String_pointer String_fromData(const char *data, size_t size) {
+String_pointer String_fromData(const char* data, size_t size) {
   assert(data != NULL || size == 0);
   String_pointer result = String_allocate();
   /* one more for null terminating character */
@@ -32,7 +32,7 @@ String_pointer String_fromData(const char *data, size_t size) {
   return result;
 }
 
-String_pointer String_fromCString(const char *c_string) {
+String_pointer String_fromCString(const char* c_string) {
   assert(c_string != NULL);
   size_t length = strlen(c_string);
   return String_fromData(c_string, length);
@@ -43,7 +43,7 @@ String_pointer String_clone(String_pointer string) {
   return String_fromData(string->data, string->size);
 }
 
-void String_free(String_pointer this) {
+void String_destroy(String_pointer this) {
   assert(this != NULL);
   free(this->data);
   this->data = NULL;
@@ -79,7 +79,7 @@ int String_compare(String_pointer a, String_pointer b) {
 int String_compareCstr(String_pointer a, const char* b) {
   String_pointer tmp = String_fromCString(b);
   int result = String_compare(a, tmp);
-  String_free(tmp);
+  String_destroy(tmp);
   return result;
 }
 
@@ -93,7 +93,7 @@ String_pointer String_join(String_pointer a, String_pointer b) {
   return result;
 }
 
-const char * String_toCstring(String_pointer this) {
+const char* String_toCstring(String_pointer this) {
   return String_data(this);
 }
 
@@ -103,7 +103,7 @@ char String_at(String_pointer this, size_t index) {
   return this->data[index];
 }
 
-const char * String_data(String_pointer this) {
+const char* String_data(String_pointer this) {
   assert(this != NULL);
   return this->data;
 }

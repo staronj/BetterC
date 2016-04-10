@@ -15,35 +15,39 @@
  */
 struct InputStream;
 
-typedef struct InputStream * InputStream_pointer;
+typedef struct InputStream* InputStream_pointer;
 
 /**
  * Creates stream from \p c_string, \p string or raw \p data.
  */
-InputStream_pointer InputStream_fromCString(const char * c_string);
+InputStream_pointer InputStream_fromCString(const char* c_string);
+
 InputStream_pointer InputStream_fromString(String_pointer string);
-InputStream_pointer InputStream_fromData(const char * data, size_t size);
+
+InputStream_pointer InputStream_fromData(const char* data, size_t size);
 
 /**
  * Frees memory.
  */
-void InputStream_free(InputStream_pointer this);
+void InputStream_destroy(InputStream_pointer this);
 
 /**
  * Reads or peeks single char.
  */
 char InputStream_readChar(InputStream_pointer this);
+
 char InputStream_peekChar(InputStream_pointer this);
 
 /**
  * Reads \p size bytes into memory pointed by \p output pointer.
  */
-void InputStream_readData(InputStream_pointer this, void * output, size_t size);
+void InputStream_readData(InputStream_pointer this, void* output, size_t size);
 
 /**
  * Reads whole stream or at most \p count characters into string.
  */
 String_pointer InputStream_readAll(InputStream_pointer this);
+
 String_pointer InputStream_readAtMost(InputStream_pointer this, size_t count);
 
 /**

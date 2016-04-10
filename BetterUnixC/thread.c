@@ -8,6 +8,7 @@
 #include "safe_memory_operations.h"
 #include "err.h"
 
+
 struct Thread {
   pthread_t thread_id;
   enum ThreadType type;
@@ -52,23 +53,23 @@ void Thread_detach(Thread_pointer this) {
   this->type = THREAD_DETACHED;
 }
 
-void Thread_joinAndFree(Thread_pointer this, void** result) {
+void Thread_joinAndDestroy(Thread_pointer this, void** result) {
   assert(this != NULL);
 
   if (this->type != THREAD_JOINABLE)
-    fatal("Thread_joinAndFree - trying to join non joinable thread.");
+    fatal("Thread_joinAndDestroy - trying to join non joinable thread.");
 
   if (pthread_join(this->thread_id, result) != 0)
-    syserr("Thread_joinAndFree - pthread_join failure.");
+    syserr("Thread_joinAndDestroy - pthread_join failure.");
 
-  Thread_free(this);
+  Thread_destroy(this);
 }
 
-void Thread_free(Thread_pointer this) {
+void Thread_destroy(Thread_pointer this) {
   assert(this != NULL);
 
   if (this->type != THREAD_DETACHED)
-    fatal("Thread_free - trying to free thread structure of not detached thread.");
+    fatal("Thread_destroy - trying to free thread structure of not detached thread.");
 
   free(this);
 }

@@ -3,13 +3,13 @@
  */
 
 #include "algorithm.h"
-#include "safe_memory_operations.h"
-
 #include <stdlib.h>
 #include <assert.h>
+#include "safe_memory_operations.h"
+
 
 int signum(int n) {
-  return (n < 0) ? -1 : ((n > 0) ? 1 : 0);
+  return (n < 0)? -1 : ((n > 0)? 1 : 0);
 }
 
 void sort(void* table, size_t count, size_t elementSize, ComparatorFunctionType comparator) {

@@ -11,11 +11,11 @@
 struct Thread;
 
 typedef struct Thread* Thread_pointer;
-typedef void* (*Thread_function_type)(void*);
+
+typedef void* (* Thread_function_type)(void*);
 
 enum ThreadType {
-  THREAD_JOINABLE,
-  THREAD_DETACHED
+  THREAD_JOINABLE, THREAD_DETACHED
 };
 
 /**
@@ -50,13 +50,13 @@ void Thread_detach(Thread_pointer this);
  *
  * In case of failure calls syserr.
  */
-void Thread_joinAndFree(Thread_pointer this, void** result);
+void Thread_joinAndDestroy(Thread_pointer this, void** result);
 
 /**
  * Frees memory.
  *
  * Thread must be in detached state otherwise fatal will be called.
  */
-void Thread_free(Thread_pointer this);
+void Thread_destroy(Thread_pointer this);
 
 #endif /* BETTERC_THREAD_H */
