@@ -55,7 +55,7 @@ int main(int argc, char *argv[]) {
     pending_connections++;
     MutexAndSignal_unlock(mutex_signal);
 
-    Thread_pointer thread = Thread_create(HandleConnection, connection, false);
+    Thread_pointer thread = Thread_create(HandleConnection, connection, THREAD_DETACHED);
     Thread_free(thread);
   }
 
