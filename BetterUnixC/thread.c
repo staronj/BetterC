@@ -62,7 +62,7 @@ void Thread_joinAndDestroy(Thread_pointer this, void** result) {
   if (pthread_join(this->thread_id, result) != 0)
     syserr("Thread_joinAndDestroy - pthread_join failure.");
 
-  Thread_destroy(this);
+  free(this);
 }
 
 void Thread_destroy(Thread_pointer this) {
