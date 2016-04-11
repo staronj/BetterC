@@ -6,12 +6,12 @@
 #include <unistd.h>
 #include "safe_memory_operations.h"
 #include "concurrent_queue.h"
-#include "thread.h"
+#include "thread_pool.h"
 
 
 ConcurrentQueue_pointer queue;
 
-void* Producer(void* arg) {
+void Producer(void* arg) {
   int* thread_id = arg;
   for (int i = 0 ; i < 5 ; i++) {
     sleep(1);
@@ -19,10 +19,9 @@ void* Producer(void* arg) {
     ConcurrentQueue_push(queue, new(int, i));
   }
   free(thread_id);
-  return NULL;
 }
 
-void* Consumer(void* arg) {
+void Consumer(void* arg) {
   int* thread_id = arg;
   for (int i = 0 ; i < 5 ; i++) {
     int* foo = ConcurrentQueue_pop(queue);
@@ -30,22 +29,18 @@ void* Consumer(void* arg) {
     free(foo);
   }
   free(thread_id);
-  return NULL;
 }
 
 int main() {
   queue = ConcurrentQueue_create();
 
-  Thread_pointer producer1 = Thread_create(Producer, new(int, 1), THREAD_JOINABLE);
-  Thread_pointer producer2 = Thread_create(Producer, new(int, 2), THREAD_JOINABLE);
-  Thread_pointer consumer1 = Thread_create(Consumer, new(int, 1), THREAD_JOINABLE);
-  Thread_pointer consumer2 = Thread_create(Consumer, new(int, 2), THREAD_JOINABLE);
+  ThreadPool_pointer thread_pool = ThreadPool_create(4);
+  ThreadPool_push(thread_pool, Producer, new(int, 1));
+  ThreadPool_push(thread_pool, Producer, new(int, 2));
+  ThreadPool_push(thread_pool, Consumer, new(int, 1));
+  ThreadPool_push(thread_pool, Consumer, new(int, 2));
 
-  Thread_joinAndDestroy(producer1, NULL);
-  Thread_joinAndDestroy(producer2, NULL);
-  Thread_joinAndDestroy(consumer1, NULL);
-  Thread_joinAndDestroy(consumer2, NULL);
-
+  ThreadPool_joinAndDestroy(thread_pool);
   ConcurrentQueue_destroy(queue);
   return 0;
 }
