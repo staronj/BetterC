@@ -14,12 +14,8 @@ struct ReadWriteLock {
   pthread_rwlock_t rwlock;
 };
 
-static ReadWriteLock_pointer ReadWriteLock_allocate() {
-  return safe_raw_allocate(1, sizeof(struct ReadWriteLock));
-}
-
 ReadWriteLock_pointer ReadWriteLock_create() {
-  ReadWriteLock_pointer this = ReadWriteLock_allocate();
+  ReadWriteLock_pointer this = new(struct ReadWriteLock);
 
   if (pthread_rwlock_init(&this->rwlock, NULL) != 0)
     syserr("ReadWriteLock_create - pthread_rwlock_init failure.");

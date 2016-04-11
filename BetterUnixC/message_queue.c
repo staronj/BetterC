@@ -46,7 +46,7 @@ static MessageQueue_pointer create_queue_with_flags(key_t key, int flags) {
     syserr("msgget error");
   }
 
-  MessageQueue_pointer result = safe_raw_allocate(1, sizeof(struct MessageQueue));
+  MessageQueue_pointer result = new(struct MessageQueue);
   result->key = key;
   result->message_queue_handle = message_queue_handle;
   return result;

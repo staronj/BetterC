@@ -15,7 +15,7 @@ struct MutexAndSignal {
 };
 
 MutexAndSignal_pointer MutexAndSignal_create() {
-  MutexAndSignal_pointer this = safe_raw_allocate(1, sizeof(struct MutexAndSignal));
+  MutexAndSignal_pointer this = new(struct MutexAndSignal);
   if (pthread_mutex_init(&this->lock, 0) != 0)
     syserr("MutexAndSignal_create: gMutex init failed");
   if (pthread_cond_init(&this->signal, 0) != 0)

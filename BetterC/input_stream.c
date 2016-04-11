@@ -12,26 +12,22 @@ struct InputStream {
   size_t i;
 };
 
-static InputStream_pointer InputStream_allocate() {
-  return safe_raw_allocate(1, sizeof(struct InputStream));
-}
-
 InputStream_pointer InputStream_fromCString(const char* c_string) {
-  InputStream_pointer result = InputStream_allocate();
+  InputStream_pointer result = new(struct InputStream);
   result->i = 0;
   result->string = String_fromCString(c_string);
   return result;
 }
 
 InputStream_pointer InputStream_fromString(String_pointer string) {
-  InputStream_pointer result = InputStream_allocate();
+  InputStream_pointer result = new(struct InputStream);
   result->i = 0;
   result->string = String_clone(string);
   return result;
 }
 
 InputStream_pointer InputStream_fromData(const char* data, size_t size) {
-  InputStream_pointer result = InputStream_allocate();
+  InputStream_pointer result = new(struct InputStream);
   result->i = 0;
   result->string = String_fromData(data, size);
   return result;

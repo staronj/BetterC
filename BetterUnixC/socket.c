@@ -31,12 +31,8 @@ struct UDPSocket {
   int socket;
 };
 
-static UDPSocket_pointer UDPListener_allocate() {
-  return safe_raw_allocate(1, sizeof(struct UDPSocket));
-}
-
 UDPSocket_pointer UDPSocket_create(short port) {
-  UDPSocket_pointer this = UDPListener_allocate();
+  UDPSocket_pointer this = new(struct UDPSocket);
   this->socket = socket(AF_INET, SOCK_DGRAM, 0);
   if (this->socket == -1)
     syserr("UDPListener_create - failed to create socket.");
@@ -64,16 +60,8 @@ struct TCPConnection {
   int socket;
 };
 
-static TCPListener_pointer TCPListener_allocate() {
-  return safe_raw_allocate(1, sizeof(struct TCPListener));
-}
-
-static TCPConnection_pointer TCPConnection_allocate() {
-  return safe_raw_allocate(1, sizeof(struct TCPConnection));
-}
-
 TCPListener_pointer TCP_listen(short port) {
-  TCPListener_pointer this = TCPListener_allocate();
+  TCPListener_pointer this = new(struct TCPListener);
   this->socket = socket(AF_INET, SOCK_STREAM, 0);
   if (this->socket == -1)
     syserr("TCPListener_create - failed to create socket.");
@@ -100,7 +88,7 @@ TCPConnection_pointer TCP_accept(TCPListener_pointer listener) {
   if (new_socket < 0)
     syserr("TCPListener_accept - accept failure");
 
-  TCPConnection_pointer connection = TCPConnection_allocate();
+  TCPConnection_pointer connection = new(struct TCPConnection);
   connection->socket = new_socket;
   return connection;
 }
@@ -117,7 +105,7 @@ TCPConnection_pointer TCP_connect(const char* service, const char* hostname) {
     syserr("TCP_connect - getaddrinfo failure: %s", gai_strerror(status));
   }
 
-  TCPConnection_pointer connection = TCPConnection_allocate();
+  TCPConnection_pointer connection = new(struct TCPConnection);
   connection->socket = socket(address->ai_family, address->ai_socktype, address->ai_protocol);
   if (connection->socket < 0) {
     syserr("TCP_connect - creating socket failure");

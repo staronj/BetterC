@@ -26,7 +26,7 @@ Thread_pointer Thread_create(Thread_function_type function, void* args, enum Thr
   if (pthread_create(&thread_id, &attr, function, args) != 0)
     syserr("Thread_create - pthread_create failure.");
 
-  Thread_pointer result = safe_raw_allocate(1, sizeof(struct Thread));
+  Thread_pointer result = new(struct Thread);
   result->type = type;
   result->thread_id = thread_id;
 

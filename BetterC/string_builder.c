@@ -14,12 +14,8 @@ struct StringBuilder {
   Vector_pointer vector;
 };
 
-static StringBuilder_pointer StringBuilder_allocate() {
-  return safe_raw_allocate(1, sizeof(struct StringBuilder));
-}
-
 StringBuilder_pointer StringBuilder_createEmpty() {
-  StringBuilder_pointer result = StringBuilder_allocate();
+  StringBuilder_pointer result = new(struct StringBuilder);
   result->vector = Vector_create(sizeof(char), VECTOR_DEFAULT);
   return result;
 }

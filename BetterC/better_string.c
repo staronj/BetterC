@@ -18,13 +18,9 @@ static size_t min(size_t a, size_t b) {
   return (a < b)? a : b;
 }
 
-static String_pointer String_allocate() {
-  return safe_raw_allocate(1, sizeof(struct String));
-}
-
 String_pointer String_fromData(const char* data, size_t size) {
   assert(data != NULL || size == 0);
-  String_pointer result = String_allocate();
+  String_pointer result = new(struct String);
   /* one more for null terminating character */
   result->data = safe_char_allocate(size + 1);
   result->size = size;
@@ -85,7 +81,7 @@ int String_compareCstr(String_pointer a, const char* b) {
 
 String_pointer String_join(String_pointer a, String_pointer b) {
   assert(a != NULL && b != NULL);
-  String_pointer result = String_allocate();
+  String_pointer result = new(struct String);
   result->data = safe_char_allocate(a->size + b->size + 1);
   result->size = a->size + b->size;
   safe_char_copy(result->data, a->data, a->size);

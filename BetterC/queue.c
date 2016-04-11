@@ -17,22 +17,14 @@ struct QueueNode {
   void* value;
 };
 
-static QueueNode_pointer QueueNode_allocate() {
-  return safe_raw_allocate(1, sizeof(struct QueueNode));
-}
-
 struct Queue {
   size_t size;
   QueueNode_pointer first;
   QueueNode_pointer last;
 };
 
-static Queue_pointer Queue_allocate() {
-  return safe_raw_allocate(1, sizeof(struct Queue));
-}
-
 Queue_pointer Queue_create() {
-  Queue_pointer this = Queue_allocate();
+  Queue_pointer this = new(struct Queue);
   return this;
 }
 
@@ -48,7 +40,7 @@ size_t Queue_size(Queue_pointer this) {
 
 void Queue_push(Queue_pointer this, void* pointer) {
   assert(this != NULL);
-  QueueNode_pointer node = QueueNode_allocate();
+  QueueNode_pointer node = new(struct QueueNode);
   node->value = pointer;
 
   if (this->last == NULL) {

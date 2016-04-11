@@ -31,7 +31,7 @@ static size_t CalculateCapacity(size_t current_capacity, size_t desired_capacity
 }
 
 Vector_pointer Vector_create(size_t elementSize, enum VectorMemoryMode memoryMode) {
-  Vector_pointer this = safe_raw_allocate(1, sizeof(struct Vector));
+  Vector_pointer this = new(struct Vector);
   this->size = 0;
   this->capacity = 0;
   this->elements = NULL;
