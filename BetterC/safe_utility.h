@@ -6,7 +6,6 @@
 #define BETTERC_SAFE_UTILITY_H
 
 #include "better_string.h"
-
 #include <stddef.h>
 
 /**

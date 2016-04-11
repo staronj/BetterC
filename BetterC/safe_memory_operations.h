@@ -49,4 +49,24 @@ void safe_char_move(char* data, size_t size, ptrdiff_t offset);
  */
 void safe_zero_memory(void* pointer, size_t number, size_t sizeOfElement);
 
+/**
+ * Creates copy of memory pointed by \p pointer.
+ */
+void* clone_memory(const void* pointer, size_t size);
+
+/**
+ * Macro for creating new static structure in memory allocated by malloc.
+ *
+ * Usage:
+ * int* foo = new(int, 1);
+ *
+ * struct foo {
+ *   int a;
+ *   char b;
+ * };
+ *
+ * struct foo* bar = new(struct foo, 1, 'a');
+ */
+#define new(type, ...) (clone_memory(&(type){__VA_ARGS__}, sizeof(type)))
+
 #endif /* BETTERC_SAFE_MEMORY_OPERATIONS_H */

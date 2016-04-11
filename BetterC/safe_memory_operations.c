@@ -48,3 +48,9 @@ void safe_char_move(char* data, size_t size, ptrdiff_t offset) {
 void safe_zero_memory(void* pointer, size_t number, size_t sizeOfElement) {
   memset(pointer, 0, number * sizeOfElement);
 }
+
+void* clone_memory(const void* pointer, size_t size) {
+  void* result = safe_raw_allocate(size, 1);
+  safe_raw_copy(result, pointer, size, 1);
+  return result;
+}
