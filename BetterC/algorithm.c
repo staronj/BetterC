@@ -75,7 +75,7 @@ bool binary_search(const void* table, size_t count, size_t elementSize, const vo
 
   size_t index = lower_bound_index(table, count, elementSize, value, comparator);
   void* element = safe_raw_offset((void*)table, index, elementSize);
-  return (count > 0 && comparator(value, element) == 0);
+  return (0 < count && index < count && comparator(value, element) == 0);
 }
 
 size_t minimum_element_index(const void* table, size_t count, size_t elementSize, ComparatorFunctionType comparator) {

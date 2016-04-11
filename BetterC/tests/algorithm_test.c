@@ -54,19 +54,20 @@ void test_lower_upper_bound() {
 
 void test_binary_search() {
   int table[] = {1, 2, 2, 3, 5, 10, 11, 12, 12, 100};
+  const size_t table_size = sizeof(table) / sizeof(int);
 
   int value = 0;
-  assert(binary_search(table, 12, sizeof(int), &value, Comparator_int) == false);
+  assert(binary_search(table, table_size, sizeof(int), &value, Comparator_int) == false);
   value = 1;
-  assert(binary_search(table, 12, sizeof(int), &value, Comparator_int) == true);
+  assert(binary_search(table, table_size, sizeof(int), &value, Comparator_int) == true);
   value = 2;
-  assert(binary_search(table, 12, sizeof(int), &value, Comparator_int) == true);
+  assert(binary_search(table, table_size, sizeof(int), &value, Comparator_int) == true);
   value = 4;
-  assert(binary_search(table, 12, sizeof(int), &value, Comparator_int) == false);
+  assert(binary_search(table, table_size, sizeof(int), &value, Comparator_int) == false);
   value = 100;
-  assert(binary_search(table, 12, sizeof(int), &value, Comparator_int) == true);
+  assert(binary_search(table, table_size, sizeof(int), &value, Comparator_int) == true);
   value = 101;
-  assert(binary_search(table, 12, sizeof(int), &value, Comparator_int) == false);
+  assert(binary_search(table, table_size, sizeof(int), &value, Comparator_int) == false);
 }
 
 void test_minimum_maximum_element() {

@@ -31,6 +31,7 @@ int main() {
 
   String_pointer rest = InputStream_readAll(stream1);
   assert(String_compareCstr(rest, "World!") == 0);
+  String_destroy(rest);
   assert(InputStream_howManyMore(stream1) == 0);
   assert(InputStream_hasNext(stream1) == false);
 

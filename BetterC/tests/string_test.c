@@ -48,11 +48,13 @@ int main() {
     {
       String_pointer empty_substr = String_substr(a, 0, 0);
       assert(String_isEmpty(empty_substr));
+      String_destroy(empty_substr);
     }
 
     {
       String_pointer empty_substr = String_substr(a, 12, 100);
       assert(String_isEmpty(empty_substr));
+      String_destroy(empty_substr);
     }
 
 
@@ -60,6 +62,7 @@ int main() {
     String_destroy(b);
     String_destroy(c);
     String_destroy(d);
+    String_destroy(e);
   }
 
 }

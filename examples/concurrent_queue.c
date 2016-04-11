@@ -15,7 +15,7 @@ void* Producer(void* arg) {
   int* thread_id = arg;
   for (int i = 0 ; i < 5 ; i++) {
     sleep(1);
-    printf("Producer %d: producing %d\n", *thread_id, i);
+    printf("Producer %d: producing <%d>\n", *thread_id, i);
     ConcurrentQueue_push(queue, new(int, i));
   }
   free(thread_id);
@@ -26,7 +26,7 @@ void* Consumer(void* arg) {
   int* thread_id = arg;
   for (int i = 0 ; i < 5 ; i++) {
     int* foo = ConcurrentQueue_pop(queue);
-    printf("Consumer %d: consuming %d\n", *thread_id, *foo);
+    printf("Consumer %d: consuming <%d>\n", *thread_id, *foo);
     free(foo);
   }
   free(thread_id);

@@ -25,6 +25,7 @@ void create_empty_test() {
 
   string = StringBuilder_toString(builder);
   assert(String_compareCstr(string, "Hello World!") == 0);
+  String_destroy(string);
 
   StringBuilder_clear(builder);
   assert(StringBuilder_empty(builder) == true);
