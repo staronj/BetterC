@@ -7,6 +7,7 @@
 #include <netinet/in.h>
 #include <sys/socket.h>
 #include <netdb.h>
+#include <unistd.h>
 #include "safe_memory_operations.h"
 #include "err.h"
 
@@ -40,15 +41,10 @@ UDPSocket_pointer UDPSocket_create(short port) {
   return this;
 }
 
-void UDPSocket_bind() {
-  // FIXME: TODO
-}
-
 void UDPSocket_destroy(UDPSocket_pointer this) {
   if (close(this->socket) == -1)
     syserr("UDPSocket_destroy - close");
 
-  this->socket;
   free(this);
 }
 
@@ -83,7 +79,7 @@ TCPListener_pointer TCP_listen(short port) {
 
 TCPConnection_pointer TCP_accept(TCPListener_pointer listener) {
   struct sockaddr_in address;
-  int address_length = sizeof(address);
+  socklen_t address_length = sizeof(address);
   int new_socket = accept(listener->socket, (struct sockaddr*)&address, &address_length);
   if (new_socket < 0)
     syserr("TCPListener_accept - accept failure");
@@ -140,7 +136,7 @@ size_t TCP_receiveToBuffer(TCPConnection_pointer connection, void* buffer, size_
 }
 
 String_pointer TCP_receive(TCPConnection_pointer connection, size_t count) {
-  char* const buffer = safe_char_allocate(count);
+  char* const buffer = new_table(char, count);
   size_t received = TCP_receiveToBuffer(connection, buffer, count);
   String_pointer result = String_fromData(buffer, received);
   free(buffer);

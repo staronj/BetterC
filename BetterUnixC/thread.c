@@ -14,7 +14,7 @@ struct Thread {
   enum ThreadType type;
 };
 
-Thread_pointer Thread_create(Thread_function_type function, void* args, enum ThreadType type) {
+Thread_pointer Thread_create(ThreadFunctionType function, void* args, enum ThreadType type) {
   pthread_attr_t attr;
 
   if (pthread_attr_init(&attr) != 0)

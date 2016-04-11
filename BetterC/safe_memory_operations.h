@@ -69,4 +69,17 @@ void* clone_memory(const void* pointer, size_t size);
  */
 #define new(type, ...) (clone_memory(&(type){__VA_ARGS__}, sizeof(type)))
 
+/**
+ * Macro for creating new dynamically allocated table.
+ * Unlike the macro 'new' table can have dynamic size.
+ *
+ * Usage:
+ * int size;
+ * scanf("%d", &size);
+ * int* foo = new_table(int, size);
+ * ...
+ * free(foo);
+ */
+#define new_table(type, size) (safe_raw_allocate((size), sizeof(type)))
+
 #endif /* BETTERC_SAFE_MEMORY_OPERATIONS_H */

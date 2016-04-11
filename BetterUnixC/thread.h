@@ -12,7 +12,7 @@ struct Thread;
 
 typedef struct Thread* Thread_pointer;
 
-typedef void* (* Thread_function_type)(void*);
+typedef void* (* ThreadFunctionType)(void*);
 
 enum ThreadType {
   THREAD_JOINABLE, THREAD_DETACHED
@@ -25,7 +25,7 @@ enum ThreadType {
  * For more info about \p type see enum ThreadType.
  * In case of failure calls syserr.
  */
-Thread_pointer Thread_create(Thread_function_type function, void* args, enum ThreadType type);
+Thread_pointer Thread_create(ThreadFunctionType function, void* args, enum ThreadType type);
 
 /**
  * Returns ThreadType of \p this thread.

@@ -79,7 +79,38 @@ void macro_new_test() {
   }
 }
 
+void macro_new_table_test() {
+  {
+    size_t size = 1000;
+    int* foo = new_table(int, size);
+    assert(foo[0] == 0);
+    assert(foo[size - 1] == 0);
+    free(foo);
+  }
+
+  {
+    typedef int array_type[5];
+    array_type* foo = new_table(array_type, 100);
+    assert(foo[0][0] == 0);
+    assert(foo[99][4] == 0);
+    free(foo);
+  }
+
+  {
+    int (* foo)[5] = new_table(int[5], 100);
+    assert(foo[0][0] == 0);
+    assert(foo[99][4] == 0);
+    free(foo);
+  }
+
+  {
+    int* foo = new_table(int, 0);
+    assert(foo == NULL);
+  }
+}
+
 int main() {
   macro_new_test();
+  macro_new_table_test();
 }
 
