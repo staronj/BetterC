@@ -113,4 +113,3 @@ int main() {
   macro_new_test();
   macro_new_table_test();
 }
-

@@ -72,4 +72,3 @@ int main(int argc, char *argv[]) {
   MutexAndSignal_destroy(mutex_signal);
   return 0;
 }
-

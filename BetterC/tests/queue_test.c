@@ -47,4 +47,5 @@ int main() {
   assert(Queue_size(queue) == 0);
 
   Queue_destroy(queue);
+  return 0;
 }
